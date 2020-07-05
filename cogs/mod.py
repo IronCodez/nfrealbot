@@ -34,12 +34,5 @@ class mod(commands.Cog):
         embed.add_field(name="Quote:", value=(random.choice(quotes)))
         await ctx.send(embed=embed)
 
-    @commands.command()
-    async def test(self, ctx):
-        if ctx.author.id == "374771579164426240":
-            await ctx.send("okay.")
-        else:
-            await ctx.send("no.")
-
 def setup(bot):
     bot.add_cog(mod(bot))
