@@ -28,5 +28,9 @@ class utilities(commands.Cog):
         embed.add_field(name="> nf!rps {r, p, s}", value="It's rock paper scissors.", inline=False)
         await ctx.send(embed=embed)
 
+    @command.commands()
+    async def ping(ctx):
+    await ctx.send(":ping_pong: Wew, I made it over the ~waves~. `{}ms` is my heartbeat (latency) :heart:.".format(round(self.client.latency * 1000, 3)))
+
 def setup(bot):
     bot.add_cog(utilities(bot))
