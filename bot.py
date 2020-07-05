@@ -5,16 +5,17 @@ import json
 import asyncio
 import time
 
-client = commands.Bot(command_prefix = "nf!")
-token = 'token'
+client = commands.Bot(command_prefix = "nf!", case_insensitive=True)
+token = 'NTEzNzgzODkxNjAyMDQ2OTg4.Xth7ZA.aou2CLxouX9t7epErfUj6zxw4Go'
+client.remove_command('help')
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
-        client.load_extension(f'cogs.{filename[:-3]}')
+      client.load_extension(f'cogs.{filename[:-3]}')
         
 @client.event
 async def on_ready():
-  print(f"Succesfully signed in as {client.user.name} ({client.user.id})")
+  print(f"Succesfully signed in as {client.user.name} ({client.user.id}).")
   print('------')
   #Status
   activity = discord.Activity(name=f'Paid My Dues | nf!help', type=discord.ActivityType.listening)
@@ -23,10 +24,5 @@ async def on_ready():
   #Booted?
   channel = client.get_channel(720110932910538793)
   await channel.send(f'Booted at {time.ctime()}')
-  
-
-@client.command()
-async def ping(ctx):
-  await ctx.send(":ping_pong: Wew, I made it over the ~waves~. `{}ms` is my heartbeat (latency) :heart:.".format(round(client.latency * 1000, 3)))
 
 client.run(token)
