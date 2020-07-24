@@ -6,7 +6,7 @@ import asyncio
 import time
 
 client = commands.Bot(command_prefix = "nf!", case_insensitive=True)
-token = 'NTEzNzgzODkxNjAyMDQ2OTg4.Xth7ZA.aou2CLxouX9t7epErfUj6zxw4Go'
+token = ''
 client.remove_command('help')
 
 for filename in os.listdir('./cogs'):
