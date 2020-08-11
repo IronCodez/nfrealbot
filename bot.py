@@ -1,11 +1,7 @@
 import discord
 from discord.ext import commands
 
-import os
-import json
-import asyncio
-import datetime
-import time
+import os, json, asyncio, datetime, time
 
 import keep_alive
 
