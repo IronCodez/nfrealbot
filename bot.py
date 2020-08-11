@@ -1,12 +1,15 @@
 import discord
 from discord.ext import commands
+
 import os
 import json
 import asyncio
 import time
 
+import keep_alive
+
 client = commands.Bot(command_prefix = "nf!", case_insensitive=True)
-token = ''
+token = os.environ['TOKEN']
 client.remove_command('help')
 
 for filename in os.listdir('./cogs'):
@@ -25,4 +28,5 @@ async def on_ready():
   channel = client.get_channel(720110932910538793)
   await channel.send(f'Booted at {time.ctime()}')
 
+keep_alive.keep_alive()
 client.run(token)
