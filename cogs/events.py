@@ -1,19 +1,30 @@
 import discord
 from discord.ext import commands
 
-class events(commands.Cog):
+import time
 
+
+class events(commands.Cog):
     def __init__(self, client):
         self.client = client
 
-    async def on_message(self, message):
-        if(message.channel.id == "709150055881375776"):
-            await self.client.add_reaction(message, "👍")
-            await self.client.add_reaction(message, "👎")
-        ctx = await self.get_context(message)
-        if ctx.prefix is not None:
-            ctx.command = self.commands.get(ctx.invoked_with.lower())
-            await self.invoke(ctx)
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print(
+            f"Succesfully signed in as {self.client.user.name} ({self.client.user.id})."
+        )
+        print('------')
+        #Status
+        activity = discord.Activity(
+            name=f'Paid My Dues | nf!help',
+            type=discord.ActivityType.streaming,
+            url="https://twitch.tv/nfmemes")
+        await self.client.change_presence(activity=activity)
+        print("Succesfully changed the status.")
+        #Booted?
+        channel = self.client.get_channel(720110932910538793)
+        await channel.send(f'Booted at {time.ctime()}')
+
 
 def setup(bot):
     bot.add_cog(events(bot))
