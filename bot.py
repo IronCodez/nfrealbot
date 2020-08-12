@@ -1,7 +1,5 @@
-import discord
+import discord, os
 from discord.ext import commands
-
-import os, json, asyncio, datetime, time
 
 import keep_alive
 
