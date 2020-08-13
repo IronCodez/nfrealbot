@@ -14,5 +14,24 @@ class modevents(commands.Cog):
       channel = self.client.get_channel(707619715903914084)
       await channel.send(embed=embed)
 
+    @commands.Cog.listener()
+    async def on_member_ban(self, guild, member):
+      embed = discord.Embed(description=f"{member.mention} {member}", color=discord.Color.red())
+      embed.set_thumbnail(url=member.avatar_url)
+      embed.set_author(name="Member Banned", icon_url=member.avatar_url)
+      embed.set_footer(text=f"ID: {member.id}")
+      channel = self.client.get_channel(707619715903914084)
+      await channel.send(embed=embed)
+
+    @commands.Cog.listener()
+    async def on_member_unban(self, guild, member):
+      embed = discord.Embed(description=f"{member.mention} {member}", color=discord.Color.green())
+      embed.set_thumbnail(url=member.avatar_url)
+      embed.set_author(name="Member Unbanned", icon_url=member.avatar_url)
+      embed.set_footer(text=f"ID: {member.id}")
+      channel = self.client.get_channel(707619715903914084)
+      await channel.send(embed=embed)
+      
+
 def setup(bot):
     bot.add_cog(modevents(bot))
