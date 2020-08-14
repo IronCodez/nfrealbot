@@ -24,6 +24,12 @@ class owner(commands.Cog):
         self.client.unload_extension(f'cogs.{extension}')
         self.client.load_extension(f'cogs.{extension}')
         await ctx.send(f":white_check_mark: Successfully reloaded the cog `{extension}`!")
+        
+    @commands.command()
+    @commands.is_owner()
+    async def stop(self, ctx):
+        await ctx.send(":white_check_mark: Successfully stopped the bot.")
+        self.client.logout()
 
 def setup(bot):
     bot.add_cog(owner(bot))
