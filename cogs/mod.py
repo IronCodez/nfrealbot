@@ -77,7 +77,7 @@ class mod(commands.Cog):
     @has_permissions(manage_messages=True)
     async def qotd(self, ctx):
         await ctx.send("<@&727892627399245906>")
-        embed = discord.Embed(title="Quote of the Day", description=f"{(random.choice(quotes))}", color=0x36393e)
+        embed = discord.Embed(title="Quote of the Day", description=f"{(random.choice(quotes))}",color=0x36393e)
         await ctx.send(embed=embed)
         await ctx.message.delete()
         embed = discord.Embed(color=discord.Color.blue(), description=f"Used `nf!qotd` in {ctx.channel.mention}")
@@ -91,17 +91,9 @@ class mod(commands.Cog):
         if not member:
             embed = discord.Embed(color=discord.Color.default())
             embed.set_author(name="nf!kick - NFrealbot")
-            embed.add_field(
-                name="Description:",
-                value="Kicks the specifed user.",
-                inline=False)
-            embed.add_field(
-                name="Usage:", value="nf!kick {member} (reason)", inline=False)
-            embed.add_field(
-                name="Example:",
-                value=
-                "nf!kick bread#7620 3 warnings \nnf!kick 374771579164426240 3 warnings\nnf!kick @bread 3 warnings"
-            )
+            embed.add_field(name="Description:", value="Kicks the specifed user.", inline=False)
+            embed.add_field( name="Usage:", value="nf!kick {member} (reason)", inline=False)
+            embed.add_field(name="Example:", value="nf!kick bread#7620 3 warnings \nnf!kick 374771579164426240 3 warnings\nnf!kick @bread 3 warnings")
             await ctx.send(embed=embed)
             return
         else:
@@ -124,17 +116,9 @@ class mod(commands.Cog):
         if not member:
             embed = discord.Embed(color=discord.Color.default())
             embed.set_author(name="nf!ban - NFrealbot")
-            embed.add_field(
-                name="Description:",
-                value="Bans the specifed user.",
-                inline=False)
-            embed.add_field(
-                name="Usage:", value="nf!ban {member} (reason)", inline=False)
-            embed.add_field(
-                name="Example:",
-                value=
-                "nf!ban bread#7620 3 warnings \nnf!ban 374771579164426240 3 warnings\nnf!ban @bread 3 warnings"
-            )
+            embed.add_field(name="Description:", value="Bans the specifed user.", inline=False)
+            embed.add_field(name="Usage:", value="nf!ban {member} (reason)", inline=False)
+            embed.add_field(name="Example:", value="nf!ban bread#7620 3 warnings \nnf!ban 374771579164426240 3 warnings\nnf!ban @bread 3 warnings")
             await ctx.send(embed=embed)
             return
         else:
@@ -144,45 +128,37 @@ class mod(commands.Cog):
             embed.set_author(name=f"{ctx.author}", icon_url=ctx.author.avatar_url)
             channel = self.client.get_channel(736051087412559954)
             await channel.send(embed=embed)
-            #dms user
+
             embed = discord.Embed(color=discord.Color.default())
             embed.set_author(name=f"Banned in {ctx.guild} - NFrealbot")
             embed.add_field(name="Reason:", value=reason, inline=False)
-            embed.add_field(
-                name="Appeal here:",
-                value=
-                "[Click here](https://forms.gle/af871S1EJvr4m9pE6) *Note: If you have appiled in the past you will not get accepted*"
-            )
+            embed.add_field(name="Appeal here:", value="[Click here](https://forms.gle/af871S1EJvr4m9pE6) *Note: If you have appiled in the past you will not get accepted*")
             await member.send(embed=embed)
-            #sends in logs
 
     @commands.command()
     async def staff(self, ctx):
         embed = discord.Embed(color=0x36393e)
         embed.set_author(name="Staff list")
-        embed.add_field(
-            name="Founders",
-            value="<@456981595694563368>\n<@487057466476199949>",
-            inline=False)
-        embed.add_field(
-            name="Managers",
-            value=
-            "<@374771579164426240>\n<@559859899274887169>\n<@623200653426032682>",
-            inline=False)
-        embed.add_field(
-            name="Supervisors",
-            value=
-            "<@527186281134817281> \n<@411200029253042186> \n<@707075298251898991>",
-            inline=False)
-        embed.add_field(
-            name="Admins",
-            value="<@591108193703428097>\n<@688059678663377084> ",
-            inline=False)
-        embed.add_field(
-            name="Mods",
-            value="<@700248807971094579>\n<@626898896878174220>",
-            inline=False)
+        embed.add_field(name="Founders", value="<@456981595694563368>",inline=False)
+        embed.add_field(name="Managers",value="<@374771579164426240>\n<@559859899274887169>\n<@623200653426032682>", inline=False)
+        embed.add_field(name="Supervisors", value="<@527186281134817281> \n<@411200029253042186> \n<@707075298251898991>", inline=False)
+        embed.add_field(name="Admins", value="<@591108193703428097>\n<@688059678663377084> ",inline=False)
+        embed.add_field(name="Mods", value="<@700248807971094579>\n<@626898896878174220>",inline=False)
         await ctx.send(embed=embed)
+
+    @commands.command(aliases=['purge', 'prune'])
+    @has_permissions(manage_messages=True)
+    async def clear(self, ctx, amount=0):
+        member = ctx.author
+        await ctx.message.delete()
+        await ctx.channel.purge(limit=amount)
+        await ctx.send(
+            f"Deleted {amount} messages requested by {member} ({member.id})")
+
+    @commands.command()
+    @has_permissions(manage_messages=True)
+    async def raid(self, ctx):
+      await ctx.send("***RAID***<@&476066307670933514> <@&709107653011570769> <@&724114934224388159>  <@&707653139620298773> <@&707734258952831067>***RAID***")
 
 
 def setup(bot):
