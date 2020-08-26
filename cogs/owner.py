@@ -1,27 +1,31 @@
-import discord
+import discord, os
 from discord.ext import commands
 
 class owner(commands.Cog):
     def __init__(self, client):
         self.client = client
 
+# 748215605701902568
     @commands.command()
     @commands.is_owner()
     async def reload(self, ctx, *, extension="all"):
-      """ Reloads cogs. """
+      """ Reloads cogs. """     
       if extension == "all":
-        self.client.reload_extension(f'cogs.events')
-        self.client.reload_extension(f'cogs.fun')
-        self.client.reload_extension(f'cogs.mental')
-        self.client.reload_extension(f'cogs.mod')
-        self.client.reload_extension(f'cogs.modevents')
-        self.client.reload_extension(f'cogs.nf')
-        self.client.reload_extension(f'cogs.owner')
-        self.client.reload_extension(f'cogs.utilities')
-        embed = discord.Embed(description=":white_check_mark: Successfully reloaded all of the cogs!", color=0x36393e)
+        msg = await ctx.send("Reloading...")
+        for filename in os.listdir('./cogs'):
+          if filename.endswith('.py'):
+            self.client.reload_extension(f'cogs.{filename[:-3]}')
+            embed = discord.Embed(description=f"`{filename[:-3]}` was reloaded by {ctx.author.name}.", color=0x36393e)
+            channel = self.client.get_channel(748215605701902568)
+            await channel.send(embed=embed)
+        embed = discord.Embed(description=f":white_check_mark: Successfully reloaded all of the cogs!", color=0x36393e)
+        await msg.delete()
         await ctx.send(embed=embed)
       else:
         self.client.reload_extension(f'cogs.{extension}')
+        embed = discord.Embed(description=f"`{extension}` was reloaded by {ctx.author.name}.", color=0x36393e)
+        channel = self.client.get_channel(748215605701902568)
+        await channel.send(embed=embed)
         embed = discord.Embed(description=f":white_check_mark: Successfully reloaded the cog `{extension}`!", color=0x36393e)
         await ctx.send(embed=embed)
 
